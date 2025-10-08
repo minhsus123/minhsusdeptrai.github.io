@@ -62,7 +62,7 @@
     .avatar img{
       width:150px;height:150px;border-radius:50%;object-fit:cover;
       border:4px solid rgba(255,255,255,0.15);
-      animation: spinSlow 10s linear infinite;
+      animation:  linear infinite;
     }
     @keyframes spinSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
@@ -203,9 +203,9 @@
   <div id="songTitle">🎵 Nova - Not Around 🎵</div>
 
   <div id="musicPlayer">
-    <button id="prevBtn">⏮</button>
-    <button id="playPauseBtn">⏸</button>
-    <button id="nextBtn">⏭</button>
+    <button id="prevBtn">◁</button>
+    <button id="playPauseBtn">❚❚</button>
+    <button id="nextBtn">▷</button>
     <input type="range" id="progressBar" value="0" min="0" max="100">
   </div>
 
@@ -221,10 +221,10 @@
     playPauseBtn.addEventListener("click", ()=>{
       if (playing) {
         music.pause();
-        playPauseBtn.textContent = "▶️";
+        playPauseBtn.textContent = "▶";
       } else {
         music.play();
-        playPauseBtn.textContent = "⏸";
+        playPauseBtn.textContent = "❚❚";
       }
       playing = !playing;
     });
