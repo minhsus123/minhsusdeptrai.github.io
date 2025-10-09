@@ -256,9 +256,9 @@
         <h2>Ảnh</h2>
         <div class="gallery">
           <img src="https://i.ibb.co/KpYY1Q78/Capture-2025-10-08-23-16-24-323.png" alt="Ảnh 1">
-          <img src="https://via.placeholder.com/400x300.png?text=Ảnh+2" alt="Ảnh 2">
-          <img src="https://via.placeholder.com/400x300.png?text=Ảnh+3" alt="Ảnh 3">
-          <img src="https://via.placeholder.com/400x300.png?text=Ảnh+4" alt="Ảnh 4">
+          <img src="https://i.ibb.co/kVS6P9df/z7099975395049-03824715bc7e10ffc7ffd74d8efd507b.jpg" alt="Ảnh 2">
+          <img src="https://i.ibb.co/35FgQ64M/z7099976345909-06a77111508f29007e5aa79be7f13a3c.jpg" alt="Ảnh 3">
+          <img src="https://i.ibb.co/4wWPF2wV/z7099976540788-635a6a63a07a210801bfeb9b3792c2b1.jpg" alt="Ảnh 4">
         </div>
       </div>
     </section>
@@ -346,6 +346,15 @@
       cursor.style.backgroundImage = `url(${frames[idx]})`;
       idx = (idx + 1) % frames.length;
     }, 100);
+    // Gán duration mặc định 184 giây (03:04)
+    music.addEventListener("loadedmetadata", ()=>{
+      timeDisplay.textContent = `00:00 / 03:04`;
+    });
+
+    music.addEventListener("timeupdate", ()=>{
+      progressBar.value = (music.currentTime / music.duration) * 100;
+      timeDisplay.textContent = `${formatTime(music.currentTime)} / 03:04`;
+    });
 
     /* Cursor glow effect khi click */
     document.addEventListener("click", e => {
