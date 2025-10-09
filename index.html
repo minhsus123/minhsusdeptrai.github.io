@@ -111,6 +111,39 @@
     .gallery img:nth-child(3){animation-delay:0.9s}
     .gallery img:nth-child(4){animation-delay:1.2s}
     @keyframes fadeGallery{to{opacity:1;transform:scale(1)}from{opacity:0;transform:scale(0.8)}}
+    /* Lightbox preview */
+    #lightbox {
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: rgba(0,0,0,0.85);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index: 20000;
+    }
+    #lightbox img {
+      max-width:90%;
+      max-height:90%;
+      border-radius:12px;
+      box-shadow:0 0 20px rgba(255,255,255,0.4);
+      animation: zoomIn 0.4s ease;
+    }
+    @keyframes zoomIn {
+      from {transform:scale(0.6); opacity:0;}
+      to {transform:scale(1); opacity:1;}
+    }
+    #lightboxClose {
+      position: absolute;
+      top:20px; right:30px;
+      font-size:32px;
+      color:#fff;
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+
 
     .top-right-icon {
       position: fixed;
@@ -240,6 +273,38 @@
       </div>
     </section>
   </main>
+  <!-- Lightbox preview -->
+  <div id="lightbox">
+    <span id="lightboxClose">&times;</span>
+    <img id="lightboxImg" src="" alt="Preview">
+  </div>
+
+  <script>
+    // Preview ảnh
+    const galleryImgs = document.querySelectorAll(".gallery img");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    const lightboxClose = document.getElementById("lightboxClose");
+
+    galleryImgs.forEach(img => {
+      img.addEventListener("click", () => {
+        lightbox.style.display = "flex";
+        lightboxImg.src = img.src;
+      });
+    });
+
+    lightboxClose.addEventListener("click", () => {
+      lightbox.style.display = "none";
+    });
+
+    lightbox.addEventListener("click", e => {
+      if (e.target === lightbox) {
+        lightbox.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
 
   <audio id="bgMusic" src="Nova - Not Around (Official Visualizer).mp3" autoplay loop></audio>
   <div id="songTitle">🎵 Nova - Not Around 🎵</div>
