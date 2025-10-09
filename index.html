@@ -199,7 +199,30 @@
         display: none;
       }
     }
-  </style>
+  
+  /* Popup preview */
+  .img-preview {
+    position: fixed;
+    pointer-events: none;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 10000;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 0 15px rgba(110,231,183,0.6);
+  }
+  .img-preview.show {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .img-preview img {
+    display: block;
+    max-width: 200px;
+    max-height: 150px;
+  }
+
+</style>
 </head>
 <body>
   <!-- Video background -->
@@ -334,5 +357,30 @@
       setTimeout(() => glow.remove(), 600);
     });
   </script>
+
+  <script>
+    // Preview popup
+    const galleryImgs = document.querySelectorAll(".gallery img");
+    const preview = document.createElement("div");
+    preview.className = "img-preview";
+    const previewImg = document.createElement("img");
+    preview.appendChild(previewImg);
+    document.body.appendChild(preview);
+
+    galleryImgs.forEach(img => {
+      img.addEventListener("mouseenter", () => {
+        previewImg.src = img.src;
+        preview.classList.add("show");
+      });
+      img.addEventListener("mousemove", (e) => {
+        preview.style.left = e.pageX + 20 + "px";
+        preview.style.top = e.pageY + 20 + "px";
+      });
+      img.addEventListener("mouseleave", () => {
+        preview.classList.remove("show");
+      });
+    });
+  </script>
+
 </body>
 </html>
