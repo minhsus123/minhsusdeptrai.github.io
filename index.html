@@ -14,14 +14,24 @@
       font-family: "Inter", sans-serif;
     }
     *{box-sizing:border-box;margin:0;padding:0}
+
+    /* Ẩn chuột mặc định toàn trang */
+    * {
+      cursor: none !important;
+    }
+
     body{
-      background: url("1056893.jpg") no-repeat center center fixed;
-      background-size: cover;
       color:#e6eef6;
       display:flex;align-items:center;justify-content:center;
       min-height:100vh;padding:24px;
       overflow-x:hidden;
-      cursor: none; /* ẩn chuột mặc định */
+    }
+    #bgVideo {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -1;
     }
     .wrap{
       width:100%;max-width:980px;
@@ -141,7 +151,6 @@
     }
     #musicPlayer button {
       font-size: 22px;
-      cursor: pointer;
       background: transparent;
       border: none;
       color: white;
@@ -150,7 +159,6 @@
     #musicPlayer button:hover {transform: scale(1.2); color:#6ee7b7}
     #progressBar {
       width: 200px;
-      cursor: pointer;
     }
 
     /* Custom Cursor */
@@ -164,9 +172,43 @@
       background-repeat: no-repeat;
       transform: translate(-50%, -50%);
     }
+
+    /* Glow khi click */
+    .cursor-glow {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(110,231,183,0.6);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      animation: glowExpand 0.6s forwards;
+      z-index: 9999;
+    }
+    @keyframes glowExpand {
+      from {transform: translate(-50%, -50%) scale(1); opacity: 1;}
+      to {transform: translate(-50%, -50%) scale(6); opacity: 0;}
+    }
+
+    /* Ẩn custom cursor trên mobile */
+    @media (max-width: 768px) {
+      body {
+        cursor: auto !important;
+      }
+      .custom-cursor {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Video background -->
+  <video autoplay muted loop id="bgVideo">
+    <source src="https://drive.google.com/file/d/1kN1lWTO61IAWNDYVcHsF1yhwhsCeofBg/view" type="video/mp4">
+    Trình duyệt của bạn không hỗ trợ video nền.
+  </video>
+
+
   <img src="https://i.ibb.co/1YsmV68J/Dialogue-Pianissimo-Chibi-Icon.webp" alt="logo top-right" class="top-right-icon">
 
   <main class="wrap">
@@ -174,7 +216,7 @@
       <div class="avatar"><img src="https://i.ibb.co/7NQnmTMR/509358686-735696755635504-1415468492631227490-n.jpg" alt="avatar"></div>
       <h1>Đào Lê Minh</h1>
       <div class="handle">@minhsus</div>
-      <p class="bio">Xin chào, mình là Minh. Đây là profile cá nhân  ✨</p>
+      <p class="bio">Xin chào, mình là Minh. Đây là profile cá nhân ✨</p>
       <div class="links">
         <a class="link-btn" href="https://facebook.com/minhsususus" target="_blank">🌐 Facebook</a>
         <a class="link-btn" href="https://github.com/" target="_blank">💻 GitHub</a>
@@ -221,6 +263,19 @@
 
     let playing = true;
 
+    // Autoplay fix
+    window.addEventListener("load", () => {
+      const playPromise = music.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // nếu bị chặn thì phát khi user click đầu tiên
+          document.body.addEventListener("click", () => {
+            music.play();
+          }, { once: true });
+        });
+      }
+    });
+
     playPauseBtn.addEventListener("click", ()=>{
       if (playing) {
         music.pause();
@@ -255,7 +310,7 @@
       cursor.style.top = e.pageY + "px";
     });
 
-    // Các frame PNG xuất từ .ani (đặt trong thư mục frames/)
+    // Frames PNG từ .ani
     const frames = [
       "frames/frame1.png",
       "frames/frame2.png",
@@ -267,7 +322,17 @@
     setInterval(() => {
       cursor.style.backgroundImage = `url(${frames[idx]})`;
       idx = (idx + 1) % frames.length;
-    }, 100); // đổi frame mỗi 100ms
+    }, 100);
+
+    /* Cursor glow effect khi click */
+    document.addEventListener("click", e => {
+      const glow = document.createElement("div");
+      glow.className = "cursor-glow";
+      glow.style.left = e.pageX + "px";
+      glow.style.top = e.pageY + "px";
+      document.body.appendChild(glow);
+      setTimeout(() => glow.remove(), 600);
+    });
   </script>
 </body>
 </html>
