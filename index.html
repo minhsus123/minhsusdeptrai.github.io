@@ -6,7 +6,7 @@
   <title>Đào Lê Minh — Profile</title>
   <style>
     :root{
-      --card:#0b1220cc; /* có alpha để thấy nền */
+      --card:#0b1220cc; 
       --muted:#9aa4b2;
       --accent:#6ee7b7;
       --glass: rgba(255,255,255,0.05);
@@ -15,30 +15,20 @@
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{
-      /* Background ảnh local */
       background: url("1056893.jpg") no-repeat center center fixed;
       background-size: cover;
       color:#e6eef6;
       display:flex;align-items:center;justify-content:center;
       min-height:100vh;padding:24px;
       overflow-x:hidden;
-      body{
-  /* Background ảnh local */
-  background: url("1056893.jpg") no-repeat center center fixed;
-  background-size: cover;
-  color:#e6eef6;
-  display:flex;align-items:center;justify-content:center;
-  min-height:100vh;padding:24px;
-  overflow-x:hidden;
-}
-
+      cursor: none; /* ẩn chuột mặc định */
     }
     .wrap{
       width:100%;max-width:980px;
       border-radius:20px;
       padding:28px;
-      backdrop-filter: blur(18px); /* blur nền */
-      background: rgba(0,0,0,0.35); /* lớp trong suốt */
+      backdrop-filter: blur(18px);
+      background: rgba(0,0,0,0.35);
       display:grid;grid-template-columns:300px 1fr;gap:24px;
       animation: fadeIn 1.2s ease;
       position:relative;
@@ -62,9 +52,7 @@
     .avatar img{
       width:150px;height:150px;border-radius:50%;object-fit:cover;
       border:4px solid rgba(255,255,255,0.15);
-      animation:  linear infinite;
     }
-    @keyframes spinSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
     h1{text-align:center;margin:12px 0 6px 0;font-size:22px}
     .handle{color:var(--muted);text-align:center;font-size:13px;margin-bottom:10px}
@@ -164,6 +152,18 @@
       width: 200px;
       cursor: pointer;
     }
+
+    /* Custom Cursor */
+    .custom-cursor {
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      pointer-events: none;
+      z-index: 10000;
+      background-size: contain;
+      background-repeat: no-repeat;
+      transform: translate(-50%, -50%);
+    }
   </style>
 </head>
 <body>
@@ -209,6 +209,9 @@
     <input type="range" id="progressBar" value="0" min="0" max="100">
   </div>
 
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="cursor"></div>
+
   <script>
     const music = document.getElementById("bgMusic");
     const playPauseBtn = document.getElementById("playPauseBtn");
@@ -244,6 +247,27 @@
     progressBar.addEventListener("input", ()=>{
       music.currentTime = (progressBar.value / 100) * music.duration;
     });
+
+    /* Cursor animation */
+    const cursor = document.getElementById("cursor");
+    document.addEventListener("mousemove", e => {
+      cursor.style.left = e.pageX + "px";
+      cursor.style.top = e.pageY + "px";
+    });
+
+    // Các frame PNG xuất từ .ani (đặt trong thư mục frames/)
+    const frames = [
+      "frames/frame1.png",
+      "frames/frame2.png",
+      "frames/frame3.png",
+      "frames/frame4.png",
+      "frames/frame5.png"
+    ];
+    let idx = 0;
+    setInterval(() => {
+      cursor.style.backgroundImage = `url(${frames[idx]})`;
+      idx = (idx + 1) % frames.length;
+    }, 100); // đổi frame mỗi 100ms
   </script>
 </body>
 </html>
