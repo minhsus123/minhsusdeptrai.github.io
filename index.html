@@ -14,11 +14,7 @@
       font-family: "Inter", sans-serif;
     }
     *{box-sizing:border-box;margin:0;padding:0}
-
-    /* Ẩn chuột mặc định toàn trang */
-    * {
-      cursor: none !important;
-    }
+    * {cursor: none !important;} /* Ẩn chuột mặc định */
 
     body{
       color:#e6eef6;
@@ -26,211 +22,80 @@
       min-height:100vh;padding:24px;
       overflow-x:hidden;
     }
-    #bgVideo {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
-    .wrap{
-      width:100%;max-width:980px;
-      border-radius:20px;
-      padding:28px;
-      backdrop-filter: blur(18px);
-      background: rgba(0,0,0,0.35);
-      display:grid;grid-template-columns:300px 1fr;gap:24px;
-      animation: fadeIn 1.2s ease;
-      position:relative;
-    }
+    #bgVideo {position: fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-1;}
+
+    .wrap{width:100%;max-width:980px;border-radius:20px;padding:28px;backdrop-filter:blur(18px);
+      background:rgba(0,0,0,0.35);display:grid;grid-template-columns:300px 1fr;gap:24px;
+      animation:fadeIn 1.2s ease;position:relative;}
     @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 
-    .profile-card{
-      background: rgba(0,0,0,0.45);
-      padding:18px;border-radius:var(--radius);
-      box-shadow:0 0 15px rgba(0,255,150,0.2);
-      transition: all .3s ease;
-      animation: pulseGlow 3s infinite alternate;
-      backdrop-filter: blur(14px);
-    }
-    @keyframes pulseGlow {
-      from{box-shadow:0 0 10px rgba(110,231,183,0.3)}
-      to{box-shadow:0 0 30px rgba(110,231,183,0.7)}
-    }
+    .profile-card{background:rgba(0,0,0,0.45);padding:18px;border-radius:var(--radius);
+      box-shadow:0 0 15px rgba(0,255,150,0.2);transition:all .3s ease;
+      animation:pulseGlow 3s infinite alternate;backdrop-filter:blur(14px);}
+    @keyframes pulseGlow{from{box-shadow:0 0 10px rgba(110,231,183,0.3)}to{box-shadow:0 0 30px rgba(110,231,183,0.7)}}
 
     .avatar{text-align:center}
-    .avatar img{
-      width:150px;height:150px;border-radius:50%;object-fit:cover;
-      border:4px solid rgba(255,255,255,0.15);
-    }
-
+    .avatar img{width:150px;height:150px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,0.15);}
     h1{text-align:center;margin:12px 0 6px 0;font-size:22px}
     .handle{color:var(--muted);text-align:center;font-size:13px;margin-bottom:10px}
     .bio{text-align:center;font-size:14px;line-height:1.5;color:#cfe7f3;margin:10px 0 14px}
 
     .links{display:grid;gap:10px;margin-top:14px}
-    .link-btn{
-      display:flex;align-items:center;gap:10px;
-      padding:12px;border-radius:12px;
-      background:rgba(255,255,255,0.05);
-      border:1px solid rgba(255,255,255,0.08);
-      text-decoration:none;color:inherit;
-      transition:all .3s ease;
-    }
-    .link-btn:hover{
-      background:rgba(110,231,183,0.2);
-      box-shadow:0 0 15px rgba(110,231,183,0.4);
-      animation: wiggle 0.4s;
-    }
-    @keyframes wiggle {
-      0%{transform:rotate(0deg)}
-      25%{transform:rotate(3deg)}
-      50%{transform:rotate(-3deg)}
-      75%{transform:rotate(2deg)}
-      100%{transform:rotate(0deg)}
-    }
+    .link-btn{display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;
+      background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);text-decoration:none;color:inherit;
+      transition:all .3s ease;}
+    .link-btn:hover{background:rgba(110,231,183,0.2);box-shadow:0 0 15px rgba(110,231,183,0.4);animation:wiggle 0.4s;}
+    @keyframes wiggle{0%{transform:rotate(0deg)}25%{transform:rotate(3deg)}50%{transform:rotate(-3deg)}75%{transform:rotate(2deg)}100%{transform:rotate(0deg)}}
 
     .main{display:flex;flex-direction:column;gap:14px}
-    .section{
-      background: rgba(0,0,0,0.4);
-      border-radius:12px;padding:14px;
-      border:1px solid rgba(255,255,255,0.05);
-      animation: fadeInUp 1s ease;
-      backdrop-filter: blur(12px);
-    }
+    .section{background:rgba(0,0,0,0.4);border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.05);
+      animation:fadeInUp 1s ease;backdrop-filter:blur(12px);}
     @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
     .section h2{margin-bottom:8px;font-size:16px;color:var(--accent)}
 
     .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
-    .gallery img{
-      width:100%;border-radius:10px;opacity:0;
-      animation: fadeGallery 1.5s forwards;
-    }
+    .gallery img{width:100%;border-radius:10px;opacity:0;animation:fadeGallery 1.5s forwards;}
     .gallery img:nth-child(1){animation-delay:0.3s}
     .gallery img:nth-child(2){animation-delay:0.6s}
     .gallery img:nth-child(3){animation-delay:0.9s}
     .gallery img:nth-child(4){animation-delay:1.2s}
     @keyframes fadeGallery{to{opacity:1;transform:scale(1)}from{opacity:0;transform:scale(0.8)}}
 
-    .top-right-icon {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      width: 60px;
-      height: auto;
-      z-index: 9999;
-      animation: glowIcon 3s infinite alternate;
-    }
-    @keyframes glowIcon {from{filter:drop-shadow(0 0 4px #6ee7b7)}to{filter:drop-shadow(0 0 12px #6ee7b7)}}
+    .top-right-icon{position:fixed;top:15px;right:15px;width:60px;height:auto;z-index:9999;
+      animation:glowIcon 3s infinite alternate;}
+    @keyframes glowIcon{from{filter:drop-shadow(0 0 4px #6ee7b7)}to{filter:drop-shadow(0 0 12px #6ee7b7)}}
 
-    #songTitle {
-      position: fixed;
-      top: 20px; left: 50%;
-      transform: translateX(-50%);
-      font-size: 20px;
-      font-weight: bold;
-      color: #6ee7b7;
-      text-shadow: 0 0 10px rgba(110,231,183,0.7);
-      animation: glowText 2s infinite alternate;
-    }
-    @keyframes glowText {
-      from {text-shadow:0 0 5px #6ee7b7;}
-      to {text-shadow:0 0 20px #6ee7b7;}
-    }
-    #musicPlayer {
-      position: fixed;
-      bottom: 20px; left: 50%;
-      transform: translateX(-50%);
-      display: flex; align-items: center;
-      gap: 10px;
-      background: rgba(0,0,0,0.4);
-      padding: 10px 14px;
-      border-radius: 12px;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 0 12px rgba(110,231,183,0.4);
-    }
-    #musicPlayer button {
-      font-size: 22px;
-      background: transparent;
-      border: none;
-      color: white;
-      transition: transform 0.2s;
-    }
-    #musicPlayer button:hover {transform: scale(1.2); color:#6ee7b7}
-    #progressBar {
-      width: 200px;
-    }
+    #songTitle{position:fixed;top:20px;left:50%;transform:translateX(-50%);font-size:20px;font-weight:bold;
+      color:#6ee7b7;text-shadow:0 0 10px rgba(110,231,183,0.7);animation:glowText 2s infinite alternate;}
+    @keyframes glowText{from{text-shadow:0 0 5px #6ee7b7;}to{text-shadow:0 0 20px #6ee7b7;}}
 
-    /* Custom Cursor */
-    .custom-cursor {
-      position: fixed;
-      width: 32px;
-      height: 32px;
-      pointer-events: none;
-      z-index: 10000;
-      background-size: contain;
-      background-repeat: no-repeat;
-      transform: translate(-50%, -50%);
-    }
+    #musicPlayer{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+      display:flex;align-items:center;gap:10px;background:rgba(0,0,0,0.4);padding:10px 14px;
+      border-radius:12px;backdrop-filter:blur(6px);box-shadow:0 0 12px rgba(110,231,183,0.4);}
+    #musicPlayer button{font-size:22px;background:transparent;border:none;color:white;transition:transform 0.2s;}
+    #musicPlayer button:hover{transform:scale(1.2);color:#6ee7b7}
+    #progressBar{width:200px;}
 
-    /* Glow khi click */
-    .cursor-glow {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: rgba(110,231,183,0.6);
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      animation: glowExpand 0.6s forwards;
-      z-index: 9999;
-    }
-    @keyframes glowExpand {
-      from {transform: translate(-50%, -50%) scale(1); opacity: 1;}
-      to {transform: translate(-50%, -50%) scale(6); opacity: 0;}
-    }
+    .custom-cursor{position:fixed;width:32px;height:32px;pointer-events:none;z-index:10000;
+      background-size:contain;background-repeat:no-repeat;transform:translate(-50%, -50%);}
+    .cursor-glow{position:fixed;width:20px;height:20px;border-radius:50%;background:rgba(110,231,183,0.6);
+      pointer-events:none;transform:translate(-50%, -50%);animation:glowExpand 0.6s forwards;z-index:9999;}
+    @keyframes glowExpand{from{transform:translate(-50%, -50%) scale(1);opacity:1;}
+      to{transform:translate(-50%, -50%) scale(6);opacity:0;}}
 
-    /* Ẩn custom cursor trên mobile */
-    @media (max-width: 768px) {
-      body {
-        cursor: auto !important;
-      }
-      .custom-cursor {
-        display: none;
-      }
-    }
-  
-  /* Popup preview */
-  .img-preview {
-    position: fixed;
-    pointer-events: none;
-    border-radius: 10px;
-    overflow: hidden;
-    z-index: 10000;
-    transform: scale(0.8);
-    opacity: 0;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    box-shadow: 0 0 15px rgba(110,231,183,0.6);
-  }
-  .img-preview.show {
-    opacity: 1;
-    transform: scale(1);
-  }
-  .img-preview img {
-    display: block;
-    max-width: 200px;
-    max-height: 150px;
-  }
+    @media (max-width: 768px){body{cursor:auto !important;}.custom-cursor{display:none;}}
 
-</style>
+    .img-preview{position:fixed;pointer-events:none;border-radius:10px;overflow:hidden;z-index:10000;
+      transform:scale(0.8);opacity:0;transition:opacity 0.2s ease,transform 0.2s ease;
+      box-shadow:0 0 15px rgba(110,231,183,0.6);}
+    .img-preview.show{opacity:1;transform:scale(1);}
+    .img-preview img{display:block;max-width:200px;max-height:150px;}
+  </style>
 </head>
 <body>
-  <!-- Video background -->
   <video autoplay muted loop id="bgVideo">
     <source src="backgr evagelion.mp4" type="video/mp4">
-    Trình duyệt của bạn không hỗ trợ video nền.
   </video>
-
 
   <img src="https://i.ibb.co/1YsmV68J/Dialogue-Pianissimo-Chibi-Icon.webp" alt="logo top-right" class="top-right-icon">
 
@@ -267,7 +132,7 @@
   <audio id="bgMusic" src="Nova - Not Around (Official Visualizer).mp3" autoplay loop></audio>
   <div id="songTitle">🎵 Nova - Not Around 🎵</div>
 
-<div id="musicPlayer">
+  <div id="musicPlayer">
     <button id="prevBtn">◁</button>
     <button id="playPauseBtn">❚❚</button>
     <button id="nextBtn">▷</button>
@@ -324,28 +189,6 @@
 
     music.addEventListener("loadedmetadata", ()=>{ timeDisplay.textContent = `00:00 / ${FIXED_DURATION_TEXT}`; });
 
-    // Frames PNG từ .ani
-    const frames = [
-      "frames/frame1.png",
-      "frames/frame2.png",
-      "frames/frame3.png",
-      "frames/frame4.png",
-      "frames/frame5.png"
-    ];
-    let idx = 0;
-    setInterval(() => {
-      cursor.style.backgroundImage = `url(${frames[idx]})`;
-      idx = (idx + 1) % frames.length;
-    }, 100);
-    // Gán duration mặc định 184 giây (03:04)
-    music.addEventListener("loadedmetadata", ()=>{
-      timeDisplay.textContent = `00:00 / 03:04`;
-    });
-
-    music.addEventListener("timeupdate", ()=>{
-      progressBar.value = (music.currentTime / music.duration) * 100;
-      timeDisplay.textContent = `${formatTime(music.currentTime)} / 03:04`;
-    });
     // Cursor
     document.addEventListener("mousemove", e => {
       cursor.style.left = e.pageX + "px"; cursor.style.top = e.pageY + "px";
@@ -361,40 +204,16 @@
     });
   </script>
 
-    /* Cursor glow effect khi click */
-    document.addEventListener("click", e => {
-      const glow = document.createElement("div");
-      glow.className = "cursor-glow";
-      glow.style.left = e.pageX + "px";
-      glow.style.top = e.pageY + "px";
-      document.body.appendChild(glow);
-      setTimeout(() => glow.remove(), 600);
-    });
-  </script>
-
   <script>
-    // Preview popup
     const galleryImgs = document.querySelectorAll(".gallery img");
-    const preview = document.createElement("div");
-    preview.className = "img-preview";
-    const previewImg = document.createElement("img");
-    preview.appendChild(previewImg);
-    document.body.appendChild(preview);
+    const preview = document.createElement("div"); preview.className = "img-preview";
+    const previewImg = document.createElement("img"); preview.appendChild(previewImg); document.body.appendChild(preview);
 
     galleryImgs.forEach(img => {
-      img.addEventListener("mouseenter", () => {
-        previewImg.src = img.src;
-        preview.classList.add("show");
-      });
-      img.addEventListener("mousemove", (e) => {
-        preview.style.left = e.pageX + 20 + "px";
-        preview.style.top = e.pageY + 20 + "px";
-      });
-      img.addEventListener("mouseleave", () => {
-        preview.classList.remove("show");
-      });
+      img.addEventListener("mouseenter", () => { previewImg.src = img.src; preview.classList.add("show"); });
+      img.addEventListener("mousemove", (e) => { preview.style.left = e.pageX + 20 + "px"; preview.style.top = e.pageY + 20 + "px"; });
+      img.addEventListener("mouseleave", () => { preview.classList.remove("show"); });
     });
   </script>
-
 </body>
 </html>
