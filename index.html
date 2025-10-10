@@ -346,6 +346,20 @@
       progressBar.value = (music.currentTime / music.duration) * 100;
       timeDisplay.textContent = `${formatTime(music.currentTime)} / 03:04`;
     });
+    // Cursor
+    document.addEventListener("mousemove", e => {
+      cursor.style.left = e.pageX + "px"; cursor.style.top = e.pageY + "px";
+    });
+    const frames = ["frames/frame1.png","frames/frame2.png","frames/frame3.png","frames/frame4.png","frames/frame5.png"];
+    let idx = 0;
+    setInterval(() => { cursor.style.backgroundImage = `url(${frames[idx]})`; idx = (idx + 1) % frames.length; }, 100);
+
+    document.addEventListener("click", e => {
+      const glow = document.createElement("div");
+      glow.className = "cursor-glow"; glow.style.left = e.pageX + "px"; glow.style.top = e.pageY + "px";
+      document.body.appendChild(glow); setTimeout(() => glow.remove(), 600);
+    });
+  </script>
 
     /* Cursor glow effect khi click */
     document.addEventListener("click", e => {
