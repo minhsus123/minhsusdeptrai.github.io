@@ -288,8 +288,8 @@
 
     let playing = true;
     // Thời lượng cố định 184s (03:04)
-  const FIXED_DURATION = 184;
-  const FIXED_DURATION_TEXT = "03:04";
+  const music.duration = 184;
+  const music.duration = "03:04";
      // Format giây -> mm:ss
   function formatTime(seconds) {
     const m = Math.floor(seconds / 60);
@@ -320,27 +320,26 @@
     playing = !playing;
   });
 
-  prevBtn.addEventListener("click", ()=>{
-    music.currentTime = Math.max(0, music.currentTime - 10);
-  });
+    prevBtn.addEventListener("click", ()=>{
+      music.currentTime = Math.max(0, music.currentTime - 10);
+    });
 
-  nextBtn.addEventListener("click", ()=>{
-    music.currentTime = Math.min(FIXED_DURATION, music.currentTime + 10);
-  });
+    nextBtn.addEventListener("click", ()=>{
+      music.currentTime = Math.min(music.duration, music.currentTime + 10);
+    });
 
-  // Khi nhạc đang phát
-  music.addEventListener("timeupdate", ()=>{
-    progressBar.value = (music.currentTime / FIXED_DURATION) * 100;
-    timeDisplay.textContent = `${formatTime(music.currentTime)} / ${FIXED_DURATION_TEXT}`;
-  });
+    music.addEventListener("timeupdate", ()=>{
+      progressBar.value = (music.currentTime / music.duration) * 100;
+    });
 
-  progressBar.addEventListener("input", ()=>{
-    music.currentTime = (progressBar.value / 100) * FIXED_DURATION;
-  });
+    progressBar.addEventListener("input", ()=>{
+      music.currentTime = (progressBar.value / 100) * music.duration;
+    });
+
 
   // Khi load xong metadata (set mặc định 00:00 / 03:04)
   music.addEventListener("loadedmetadata", ()=>{
-    timeDisplay.textContent = `00:00 / ${FIXED_DURATION_TEXT}`;
+    timeDisplay.textContent = `00:00 / ${music.duration}`;
   });
 </script>
 
