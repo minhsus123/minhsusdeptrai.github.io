@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  const startMessage = "Click here to see the motion baby";
+  const startMessage = "Thank for visit my website,minhsus";
   let startTextContent = '';
   let startIndex = 0;
   let startCursorVisible = true;
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  const name = "JAQLIV";
+  const name = "Đào Lê Minh";
   let nameText = '';
   let nameIndex = 0;
   let isNameDeleting = false;
@@ -669,3 +669,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   typeWriterStart();
 });
+
