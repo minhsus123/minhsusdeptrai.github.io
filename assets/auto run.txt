@@ -1,0 +1,221 @@
+-- Auto Bunnyhop + Auto CTRL + Auto Run + GUI + Hotkeys (F1/F2/F3/F4) + Draggable GUI
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local UserInputService = game:GetService("UserInputService")
+
+local bunnyhopEnabled = false
+local autoCtrlEnabled = false
+local autoRunEnabled = false
+local ctrlLoop, runLoop
+local toggleButton, ctrlButton, runButton, frame -- GUI refs
+
+-- Função para arrastar Frame
+local function makeDraggable(gui)
+    local dragging = false
+    local dragStart, startPos
+
+    gui.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            dragStart = input.Position
+            startPos = gui.Position
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+
+    gui.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement and dragging then
+            local delta = input.Position - dragStart
+            gui.Position = UDim2.new(
+                startPos.X.Scale, startPos.X.Offset + delta.X,
+                startPos.Y.Scale, startPos.Y.Offset + delta.Y
+            )
+        end
+    end)
+end
+
+-- Função para criar GUI
+local function createGUI()
+    -- Remove GUI antigo se existir
+    if player.PlayerGui:FindFirstChild("BunnyhopGUI") then
+        player.PlayerGui.BunnyhopGUI:Destroy()
+    end
+
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Parent = player:WaitForChild("PlayerGui")
+    screenGui.Name = "BunnyhopGUI"
+
+    frame = Instance.new("Frame")
+    frame.Parent = screenGui
+    frame.Size = UDim2.new(0, 160, 0, 180)
+    frame.Position = UDim2.new(0.05, 0, 0.1, 0)
+    frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+
+    makeDraggable(frame) -- 🔥 Cho phép kéo Frame
+
+    -- Botão Bunnyhop
+    toggleButton = Instance.new("TextButton")
+    toggleButton.Parent = frame
+    toggleButton.Size = UDim2.new(0, 140, 0, 40)
+    toggleButton.Position = UDim2.new(0, 10, 0, 10)
+    toggleButton.Text = "Bunnyhop: OFF"
+    toggleButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+
+    toggleButton.MouseButton1Click:Connect(function()
+        bunnyhopEnabled = not bunnyhopEnabled
+        if bunnyhopEnabled then
+            toggleButton.Text = "Bunnyhop: ON"
+            toggleButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+        else
+            toggleButton.Text = "Bunnyhop: OFF"
+            toggleButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+        end
+    end)
+
+    -- Botão Auto CTRL
+    ctrlButton = Instance.new("TextButton")
+    ctrlButton.Parent = frame
+    ctrlButton.Size = UDim2.new(0, 140, 0, 40)
+    ctrlButton.Position = UDim2.new(0, 10, 0, 60)
+    ctrlButton.Text = "Auto CTRL: OFF"
+    ctrlButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+
+    ctrlButton.MouseButton1Click:Connect(function()
+        autoCtrlEnabled = not autoCtrlEnabled
+        if autoCtrlEnabled then
+            ctrlButton.Text = "Auto CTRL: ON"
+            ctrlButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+            ctrlLoop = task.spawn(function()
+                while autoCtrlEnabled do
+                    VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.LeftControl, false, game)
+                    task.wait(0.1)
+                end
+                VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.LeftControl, false, game)
+            end)
+        else
+            ctrlButton.Text = "Auto CTRL: OFF"
+            ctrlButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+            autoCtrlEnabled = false
+        end
+    end)
+
+    -- Botão Auto Run
+    runButton = Instance.new("TextButton")
+    runButton.Parent = frame
+    runButton.Size = UDim2.new(0, 140, 0, 40)
+    runButton.Position = UDim2.new(0, 10, 0, 110)
+    runButton.Text = "Auto Run: OFF"
+    runButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+
+    runButton.MouseButton1Click:Connect(function()
+        autoRunEnabled = not autoRunEnabled
+        if autoRunEnabled then
+            runButton.Text = "Auto Run: ON"
+            runButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+            runLoop = task.spawn(function()
+                while autoRunEnabled do
+                    VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.W, false, game)
+                    task.wait(0.1)
+                end
+                VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.W, false, game)
+            end)
+        else
+            runButton.Text = "Auto Run: OFF"
+            runButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+            autoRunEnabled = false
+        end
+    end)
+end
+
+-- Função para configurar Bunnyhop
+local function setupBunnyhop()
+    humanoid.StateChanged:Connect(function(_, newState)
+        if bunnyhopEnabled and newState == Enum.HumanoidStateType.Landed then
+            task.wait(0.05)
+            humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+        end
+    end)
+end
+
+-- Hotkeys
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+
+    if input.KeyCode == Enum.KeyCode.F1 then
+        -- Toggle Bunnyhop
+        bunnyhopEnabled = not bunnyhopEnabled
+        if toggleButton then
+            toggleButton.Text = bunnyhopEnabled and "Bunnyhop: ON" or "Bunnyhop: OFF"
+            toggleButton.BackgroundColor3 = bunnyhopEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+        end
+
+    elseif input.KeyCode == Enum.KeyCode.F2 then
+        -- Toggle Auto CTRL
+        autoCtrlEnabled = not autoCtrlEnabled
+        if ctrlButton then
+            if autoCtrlEnabled then
+                ctrlButton.Text = "Auto CTRL: ON"
+                ctrlButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+                ctrlLoop = task.spawn(function()
+                    while autoCtrlEnabled do
+                        VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.LeftControl, false, game)
+                        task.wait(0.1)
+                    end
+                    VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.LeftControl, false, game)
+                end)
+            else
+                ctrlButton.Text = "Auto CTRL: OFF"
+                ctrlButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+                autoCtrlEnabled = false
+            end
+        end
+
+    elseif input.KeyCode == Enum.KeyCode.F3 then
+        -- Toggle GUI visibility
+        if frame then
+            frame.Visible = not frame.Visible
+        end
+
+    elseif input.KeyCode == Enum.KeyCode.F4 then
+        -- Toggle Auto Run
+        autoRunEnabled = not autoRunEnabled
+        if runButton then
+            if autoRunEnabled then
+                runButton.Text = "Auto Run: ON"
+                runButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+                runLoop = task.spawn(function()
+                    while autoRunEnabled do
+                        VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.W, false, game)
+                        task.wait(0.1)
+                    end
+                    VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.W, false, game)
+                end)
+            else
+                runButton.Text = "Auto Run: OFF"
+                runButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+                autoRunEnabled = false
+            end
+        end
+    end
+end)
+
+-- Inicializa
+createGUI()
+setupBunnyhop()
+
+-- Reconecta ao renascer
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    humanoid = character:WaitForChild("Humanoid")
+
+    autoCtrlEnabled = false
+    autoRunEnabled = false
+    createGUI()
+    setupBunnyhop()
+end)
