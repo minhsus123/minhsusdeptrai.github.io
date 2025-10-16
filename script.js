@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   const bioMessages = [
-    "Fu*k Guns.lol & Fakecrime.bio got banned too often, so I created my own.",
+    "skibidi skibidi dop dop yes yes xin chào cả nhà nha",
     "\"Hello, World!\""
   ];
   let bioText = '';
@@ -669,4 +669,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   typeWriterStart();
 });
+
 
