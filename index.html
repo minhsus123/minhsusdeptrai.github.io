@@ -1043,5 +1043,18 @@
 
 
     <script src="script.js"></script>
+    <script>
+    // --- TÍNH TỰ ĐỘNG SỐ NGÀY ĐÃ SỐNG ---
+    const birthDate = new Date("2006-11-29");
+    const today = new Date();
+
+    // Tính số ngày giữa hai mốc
+    const diffTime = today - birthDate;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    // Hiển thị kết quả lên thẻ #visitor-count
+    document.getElementById("visitor-count").textContent = diffDays;
+</script>
+
 </body>
 </html>
