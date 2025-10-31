@@ -667,8 +667,91 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  typeWriterStart();
+   typeWriterStart();
 });
+
+
+// ===========================
+// 🔥 ẨN CON TRỎ GỐC + ANIME CURSOR
+// ===========================
+
+// Ẩn chuột gốc của trình duyệt trên toàn bộ web
+const style = document.createElement("style");
+style.textContent = `* { cursor: none !important; }`;
+document.head.appendChild(style);
+
+// Tạo phần tử con trỏ tùy chỉnh
+const animeCursor = document.createElement("div");
+animeCursor.classList.add("anime-cursor");
+document.body.appendChild(animeCursor);
+
+// CSS cho anime cursor
+const cursorStyle = document.createElement("style");
+cursorStyle.textContent = `
+.anime-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.4) 70%, transparent 100%);
+  box-shadow: 0 0 15px rgba(255,255,255,0.7);
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.1s ease-out, background 0.2s ease-out, box-shadow 0.2s ease-out;
+  z-index: 9999;
+  mix-blend-mode: screen;
+}
+.trail-dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  pointer-events: none;
+  z-index: 9998;
+  animation: fadeTrail 0.6s ease-out forwards;
+}
+@keyframes fadeTrail {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(2); }
+}
+`;
+document.head.appendChild(cursorStyle);
+
+// Di chuyển anime cursor
+document.addEventListener("mousemove", e => {
+  animeCursor.style.left = e.clientX + "px";
+  animeCursor.style.top = e.clientY + "px";
+
+  // Hiệu ứng đuôi sáng
+  const dot = document.createElement("div");
+  dot.classList.add("trail-dot");
+  dot.style.left = e.clientX + "px";
+  dot.style.top = e.clientY + "px";
+  document.body.appendChild(dot);
+  setTimeout(() => dot.remove(), 600);
+});
+
+// Hiệu ứng click co giãn
+document.addEventListener("mousedown", () => {
+  animeCursor.style.transform = "translate(-50%, -50%) scale(0.6)";
+  animeCursor.style.boxShadow = "0 0 25px rgba(255,255,255,1)";
+});
+document.addEventListener("mouseup", () => {
+  animeCursor.style.transform = "translate(-50%, -50%) scale(1)";
+  animeCursor.style.boxShadow = "0 0 15px rgba(255,255,255,0.7)";
+});
+
+// Ẩn chuột khi rời trang
+document.addEventListener("mouseleave", () => {
+  animeCursor.style.opacity = "0";
+});
+document.addEventListener("mouseenter", () => {
+  animeCursor.style.opacity = "1";
+});
+
 
 
 
