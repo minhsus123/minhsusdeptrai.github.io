@@ -953,7 +953,7 @@
     <span class="tooltip">MY FUCKING VIEWER</span>
 </div>
 
-<!-- LIFE TIMER -->
+<!-- LIFE COUNTER -->
 <div class="life-counter">
     <svg class="life-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -962,7 +962,7 @@
               d="M6 20h12M12 2v2m6 2l1 2M4 6l1-2"/>
     </svg>
     <span id="life-days"></span>
-    <span class="tooltip">TIME I'VE BEEN ALIVE</span>
+    <span class="tooltip">DAYS I'VE LIVED</span>
 </div>
 
 <style>
@@ -1012,21 +1012,20 @@
     opacity: 1;
 }
 
-@keyframes neonPulse {
-    0% { text-shadow: 0 0 10px #00ffff, 0 0 30px #00ffee, 0 0 60px #00ffee; }
-    50% { text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffee, 0 0 80px #00ffee; }
-    100% { text-shadow: 0 0 10px #00ffff, 0 0 30px #00ffee, 0 0 60px #00ffee; }
+@keyframes glow {
+    0% { text-shadow: 0 0 5px #00ffff, 0 0 15px #00ffee, 0 0 25px #00ffee; }
+    50% { text-shadow: 0 0 15px #00ffff, 0 0 30px #00ffee, 0 0 45px #00ffee; }
+    100% { text-shadow: 0 0 5px #00ffff, 0 0 15px #00ffee, 0 0 25px #00ffee; }
 }
 
 #life-days {
-    animation: neonPulse 2s ease-in-out infinite;
+    animation: glow 2s ease-in-out infinite;
 }
 </style>
 
 <script>
-const birthDate = new Date("2006-11-29T00:00:00");
-
-function updateLifeTime() {
+function updateLifeDays() {
+    const birthDate = new Date("2006-11-29T00:00:00");
     const now = new Date();
     const diffMs = now - birthDate;
 
@@ -1034,20 +1033,23 @@ function updateLifeTime() {
     const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
     const minutes = Math.floor((diffMs / (1000 * 60)) % 60);
     const seconds = Math.floor((diffMs / 1000) % 60);
-    const milliseconds = Math.floor(diffMs % 1000);
 
-    const formatted = `${days} days ${hours.toString().padStart(2,'0')}h ${minutes
-        .toString().padStart(2,'0')}m ${seconds.toString().padStart(2,'0')}s ${milliseconds
-        .toString().padStart(3,'0')}ms`;
-
-    document.getElementById("life-days").textContent = formatted;
-
-    // cập nhật cực mượt (60fps)
-    requestAnimationFrame(updateLifeTime);
+    // Hiệu ứng mượt dần khi thay đổi số
+    const el = document.getElementById("life-days");
+    const newText = `${days} days ${hours}h ${minutes}m ${seconds}s`;
+    if (el.textContent !== newText) {
+        el.style.opacity = 0.4;
+        setTimeout(() => {
+            el.textContent = newText;
+            el.style.opacity = 1;
+        }, 200);
+    }
 }
 
-updateLifeTime();
+setInterval(updateLifeDays, 1000);
+updateLifeDays();
 </script>
+
 
 
 
