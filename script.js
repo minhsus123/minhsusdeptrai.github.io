@@ -680,10 +680,7 @@ const style = document.createElement("style");
 style.textContent = `* { cursor: none !important; }`;
 document.head.appendChild(style);
 
-// Tạo phần tử con trỏ tùy chỉnh
-const animeCursor = document.createElement("div");
-animeCursor.classList.add("anime-cursor");
-document.body.appendChild(animeCursor);
+
 
 // CSS cho anime cursor
 const cursorStyle = document.createElement("style");
@@ -720,10 +717,7 @@ cursorStyle.textContent = `
 `;
 document.head.appendChild(cursorStyle);
 
-// Di chuyển anime cursor
-document.addEventListener("mousemove", e => {
-  animeCursor.style.left = e.clientX + "px";
-  animeCursor.style.top = e.clientY + "px";
+
 
   // Hiệu ứng đuôi sáng
   const dot = document.createElement("div");
@@ -751,6 +745,7 @@ document.addEventListener("mouseleave", () => {
 document.addEventListener("mouseenter", () => {
   animeCursor.style.opacity = "1";
 });
+
 
 
 
