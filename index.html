@@ -942,7 +942,18 @@
                 </div>
 
                 <div class="visitor-counter">
-                    <div class="life-counter">
+    <svg class="visitor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+    </svg>
+    <span id="visitor-count">6898</span>
+    <span class="tooltip">MY FUCKING VIEWER</span>
+</div>
+
+<!-- 💫 LIFE COUNTER (SỐ NGÀY ĐÃ SỐNG) -->
+<div class="life-counter">
     <svg class="life-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M12 8c-2.21 0-4 1.79-4 4v6h8v-6c0-2.21-1.79-4-4-4z"/>
@@ -953,17 +964,79 @@
     <span class="tooltip">DAYS I'VE LIVED</span>
 </div>
 
-                    <svg class="visitor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                    </svg>
-                    <span id="visitor-count">6898</span>
-                    <span class="tooltip">MY FUCKING VIEWER</span>
-                </div>
-            </div>
-        </div>  
+<style>
+.visitor-counter, .life-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #00ffee;
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    position: relative;
+    margin: 10px;
+    text-shadow: 0 0 8px #00ffff, 0 0 20px #00ffee;
+    transition: transform 0.3s ease;
+}
 
+.visitor-icon, .life-icon {
+    width: 22px;
+    height: 22px;
+    filter: drop-shadow(0 0 4px #00ffff);
+}
 
+.tooltip {
+    visibility: hidden;
+    background-color: #111;
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: 0.3s;
+    white-space: nowrap;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.visitor-counter:hover .tooltip,
+.life-counter:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.life-counter {
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0% { text-shadow: 0 0 10px #00ffff, 0 0 25px #00ffee, 0 0 50px #00ffee; }
+    50% { text-shadow: 0 0 20px #00ffff, 0 0 35px #00ffee, 0 0 70px #00ffee; }
+    100% { text-shadow: 0 0 10px #00ffff, 0 0 25px #00ffee, 0 0 50px #00ffee; }
+}
+</style>
+
+<script>
+function updateLifeDays() {
+    const birthDate = new Date("2006-11-29T00:00:00");
+    const now = new Date();
+    const diffMs = now - birthDate;
+
+    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diffMs / (1000 * 60)) % 60);
+    const seconds = Math.floor((diffMs / 1000) % 60);
+
+    document.getElementById("life-days").textContent =
+        `${days} days ${hours}h ${minutes}m ${seconds}s`;
+}
+
+// cập nhật tự động mỗi giây
+setInterval(updateLifeDays, 1000);
+updateLifeDays();
+</script>
 
 
         <div id="skills-block" class="hidden">
