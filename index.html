@@ -384,7 +384,7 @@
             gap: 15px;
             width: 100%;
             margin-top: 10px;
-            flex-wrap: wrap; /* Cho phép rớt dòng nếu màn hình quá bé */
+            flex-wrap: wrap;
         }
 
         .visitor-counter, .life-counter {
@@ -404,7 +404,7 @@
         }
 
         .life-counter {
-            font-variant-numeric: tabular-nums; /* Giúp các chữ số có độ rộng bằng nhau để không bị rung */
+            font-variant-numeric: tabular-nums; 
             animation: glow 2s ease-in-out infinite;
         }
 
@@ -734,13 +734,12 @@
                 height: 32px;
             }
 
-            /* Điều chỉnh bộ đếm trên Mobile */
             .counters-row {
-                gap: 5px; /* Giảm khoảng cách để vừa màn hình */
+                gap: 5px; 
             }
 
             .visitor-counter, .life-counter {
-                font-size: 11px; /* Font nhỏ lại để cùng nằm trên 1 hàng */
+                font-size: 11px; 
                 padding: 6px 10px;
                 margin: 0;
             }
@@ -754,7 +753,7 @@
                 width: 100px;
                 font-size: 11px;
                 margin-left: -50px;
-                top: -30px; /* Tooltip trên mobile bị đè nên chỉnh lên cao chút */
+                top: -30px; 
             }
 
             .skills-title {
@@ -852,8 +851,10 @@
         <div id="profile-block">
             <div class="profile-header">
                 <div class="profile-container">
-                    <img id="profile-img" src="assets/profile.gif" alt="Profile" class="profile-picture" onclick="document.getElementById('avatar-upload').click()" title="Bấm vào để đổi ảnh đại diện">
-                    <input type="file" id="avatar-upload" accept="image/*" style="display: none;" onchange="changeAvatar(event)">
+                    <label for="avatar-upload" style="cursor: pointer; display: block; width: 100%; height: 100%;">
+                        <img id="profile-img" src="assets/profile.gif" alt="Profile" class="profile-picture" title="Bấm vào để đổi ảnh đại diện">
+                    </label>
+                    <input type="file" id="avatar-upload" accept="image/*" style="opacity: 0; position: absolute; z-index: -10; width: 1px; height: 1px;" onchange="window.changeAvatar(event)">
                 </div>
                 <div class="profile-info">
                     <div class="name-and-badges">
@@ -967,8 +968,8 @@
         setInterval(updateLifeDays, 1000);
         updateLifeDays();
 
-        // BẮT ĐẦU ĐOẠN JS HỖ TRỢ UPLOAD ẢNH
-        function changeAvatar(event) {
+        // ĐÃ SỬA LẠI ĐỂ HOẠT ĐỘNG TỐT TRÊN MỌI TRÌNH DUYỆT
+        window.changeAvatar = function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -977,8 +978,7 @@
                 }
                 reader.readAsDataURL(file);
             }
-        }
-        // KẾT THÚC ĐOẠN JS HỖ TRỢ UPLOAD ẢNH
+        };
         </script>
 
         <div id="skills-block" class="hidden">
