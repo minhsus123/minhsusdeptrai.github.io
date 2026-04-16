@@ -12,7 +12,6 @@
             font-family: 'Courier New', monospace;
         }
 
-        
         .custom-cursor {
             position: fixed;
             width: 40px;
@@ -24,7 +23,6 @@
             transform: translate(-50%, -50%);
         }
 
-        
         body:not(.touch-device) {
             cursor: none;
         }
@@ -78,7 +76,6 @@
             display: none !important;
         }
 
-        
         .controls {
             position: fixed;
             bottom: calc(50% - 240px - 10px);
@@ -113,7 +110,6 @@
             border-color: rgba(255, 255, 255, 0.8);
         }
 
-        
         .volume-control {
             display: flex;
             align-items: center;
@@ -148,7 +144,6 @@
             cursor: pointer;
         }
 
-        
         .transparency-control {
             display: flex;
             align-items: center;
@@ -161,7 +156,6 @@
             color: white;
         }
 
-        
         .top-controls {
             position: fixed;
             bottom: calc(50% - 240px - 60px);
@@ -177,7 +171,6 @@
             backdrop-filter: blur(5px);
         }
 
-        
         #profile-block {
             position: fixed;
             top: 50%;
@@ -258,7 +251,6 @@
             margin-bottom: 10px;
         }
 
-        
         @font-face {
             font-family: 'Angel Wish';
             src: url('assets/Angel_wish.ttf') format('truetype');
@@ -362,53 +354,6 @@
             margin-top: auto;
         }
 
-        .visitor-counter {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            align-self: flex-start;
-            position: relative;
-            pointer-events: auto;
-            opacity: 1 !important;
-        }
-
-        .visitor-icon {
-            width: 18px;
-            height: 18px;
-            color: white;
-            opacity: 1 !important;
-        }
-
-        .visitor-counter .tooltip {
-            visibility: hidden;
-            width: 120px;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px 0;
-            position: absolute;
-            z-index: 100;
-            top: -35px;
-            left: 50%;
-            margin-left: -60px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .visitor-counter:hover .tooltip {
-            visibility: visible;
-            opacity: 1 !important;
-        }
-
-        #visitor-count {
-            opacity: 1 !important;
-        }
-
         .social-links {
             display: flex;
             justify-content: center;
@@ -431,7 +376,76 @@
             transform: scale(1.4) rotateY(15deg);
         }
 
-        
+        /* Dòng flex nằm ngang chứa cả 2 bộ đếm */
+        .counters-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            margin-top: 10px;
+            flex-wrap: wrap; /* Cho phép rớt dòng nếu màn hình quá bé */
+        }
+
+        .visitor-counter, .life-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #00ffee;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            position: relative;
+            text-shadow: 0 0 8px #00ffff, 0 0 20px #00ffee;
+            transition: transform 0.3s ease;
+            pointer-events: auto;
+        }
+
+        .life-counter {
+            font-variant-numeric: tabular-nums; /* Giúp các chữ số có độ rộng bằng nhau để không bị rung */
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .visitor-icon, .life-icon {
+            width: 20px;
+            height: 20px;
+            filter: drop-shadow(0 0 4px #00ffff);
+            color: white;
+            opacity: 1 !important;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            background-color: #111;
+            color: #fff;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: 0.3s;
+            white-space: nowrap;
+            box-shadow: 0 0 10px #00ffff;
+            z-index: 100;
+        }
+
+        .visitor-counter:hover .tooltip,
+        .life-counter:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px #00ffff, 0 0 25px #00ffee, 0 0 50px #00ffee; }
+            50% { text-shadow: 0 0 20px #00ffff, 0 0 35px #00ffee, 0 0 70px #00ffee; }
+            100% { text-shadow: 0 0 10px #00ffff, 0 0 25px #00ffee, 0 0 50px #00ffee; }
+        }
+
         #skills-block {
             position: fixed;
             top: 50%;
@@ -502,7 +516,6 @@
             background: linear-gradient(90deg, #43e97b, #38f9d7);
         }
 
-        
         #results-button-container {
             position: fixed;
             top: 20px;
@@ -555,7 +568,6 @@
             border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
         }
 
-        
         .home-theme #profile-block,
         .home-theme #skills-block {
             border-color: rgba(0, 195, 255, 0.5);
@@ -581,51 +593,29 @@
             border-color: rgba(255, 165, 0, 0.5);
         }
 
-        
         .glitch {
             animation: glitch 0.2s ease-in-out;
         }
 
         @keyframes glitch {
-            0% {
-                transform: translate(0);
-            }
-            20% {
-                transform: translate(-2px, 2px);
-            }
-            40% {
-                transform: translate(-2px, -2px);
-            }
-            60% {
-                transform: translate(2px, 2px);
-            }
-            80% {
-                transform: translate(2px, -2px);
-            }
-            100% {
-                transform: translate(0);
-            }
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
         }
 
         @keyframes orbit {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         @keyframes fast-orbit {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        
         .cursor-trail {
             position: fixed;
             pointer-events: none;
@@ -642,7 +632,6 @@
             transition: opacity 0.3s ease;
         }
 
-        
         #start-screen {
             position: fixed;
             top: 0;
@@ -665,9 +654,8 @@
             text-align: center;
         }
 
-        
+        /* --- MOBILE RESPONSIVE --- */
         @media (max-width: 430px) {
-            
             #profile-block, #skills-block {
                 width: 90vw;
                 max-width: 350px;
@@ -746,22 +734,27 @@
                 height: 32px;
             }
 
-            .visitor-counter {
-                font-size: 12px;
-                padding: 6px 12px;
-                align-self: center;
+            /* Điều chỉnh bộ đếm trên Mobile */
+            .counters-row {
+                gap: 5px; /* Giảm khoảng cách để vừa màn hình */
             }
 
-            .visitor-icon {
-                width: 16px;
-                height: 16px;
+            .visitor-counter, .life-counter {
+                font-size: 11px; /* Font nhỏ lại để cùng nằm trên 1 hàng */
+                padding: 6px 10px;
+                margin: 0;
             }
 
-            .visitor-counter .tooltip {
+            .visitor-icon, .life-icon {
+                width: 14px;
+                height: 14px;
+            }
+
+            .visitor-counter .tooltip, .life-counter .tooltip {
                 width: 100px;
-                font-size: 12px;
+                font-size: 11px;
                 margin-left: -50px;
-                top: -30px;
+                top: -30px; /* Tooltip trên mobile bị đè nên chỉnh lên cao chút */
             }
 
             .skills-title {
@@ -778,7 +771,6 @@
                 font-size: 14px;
             }
 
-            
             .controls {
                 bottom: 20px;
                 gap: 8px;
@@ -791,7 +783,6 @@
                 font-size: 12px;
             }
 
-            
             .top-controls {
                 bottom: 70px;
                 gap: 10px;
@@ -817,7 +808,6 @@
                 height: 10px;
             }
 
-            
             #results-button-container {
                 top: 10px;
             }
@@ -833,7 +823,6 @@
                 padding: 6px 10px;
             }
 
-            
             #start-text {
                 font-size: 18px;
                 padding: 0 20px;
@@ -846,7 +835,6 @@
     
     <div class="custom-cursor"></div>
 
-    
     <div id="start-screen">
         <div id="start-text"></div>
     </div>
@@ -857,15 +845,9 @@
             <source src="assets/background.mp4" type="video/mp4">
         </video>
 
-        
         <div class="glitch-overlay"></div>
-        <div id="hacker-overlay" class="hidden">
-            
-        </div>
-        <div id="snow-overlay" class="hidden">
-            
-        </div>
-
+        <div id="hacker-overlay" class="hidden"></div>
+        <div id="snow-overlay" class="hidden"></div>
 
         <div id="profile-block">
             <div class="profile-header">
@@ -925,7 +907,6 @@
             <div class="bio-separator"></div>
 
             <div class="profile-footer">
-
                 <div class="social-links">
                     <a href="https://discord.gg/Gt4GAY6y" target="_blank">
                         <img src="assets/discord.png" alt="Discord" class="social-icon">
@@ -941,103 +922,50 @@
                     </a>
                 </div>
 
-                <div class="visitor-counter">
-    <svg class="visitor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-    </svg>
-    <span id="visitor-count">6898</span>
-    <span class="tooltip">MY FKING VIEWER</span>
-</div>
+                <div class="counters-row">
+                    <div class="visitor-counter">
+                        <svg class="visitor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                        <span id="visitor-count">6898</span>
+                        <span class="tooltip">MY FKING VIEWER</span>
+                    </div>
 
-<!-- 💫 LIFE COUNTER (SỐ NGÀY ĐÃ SỐNG) -->
-<div class="life-counter">
-    <svg class="life-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M12 8c-2.21 0-4 1.79-4 4v6h8v-6c0-2.21-1.79-4-4-4z"/>
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M6 20h12M12 2v2m6 2l1 2M4 6l1-2"/>
-    </svg>
-    <span id="life-days"></span>
-    <span class="tooltip">DAYS I'VE LIVED</span>
-</div>
+                    <div class="life-counter">
+                        <svg class="life-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 8c-2.21 0-4 1.79-4 4v6h8v-6c0-2.21-1.79-4-4-4z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M6 20h12M12 2v2m6 2l1 2M4 6l1-2"/>
+                        </svg>
+                        <span id="life-days"></span>
+                        <span class="tooltip">DAYS I'VE LIVED</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<style>
-.visitor-counter, .life-counter {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: #00ffee;
-    font-family: 'Courier New', monospace;
-    font-size: 18px;
-    position: relative;
-    margin: 10px;
-    text-shadow: 0 0 8px #00ffff, 0 0 20px #00ffee;
-    transition: transform 0.3s ease;
-}
+        <script>
+        function updateLifeDays() {
+            const birthDate = new Date("2006-11-29T00:00:00");
+            const now = new Date();
+            const diffMs = now - birthDate;
 
-.visitor-icon, .life-icon {
-    width: 22px;
-    height: 22px;
-    filter: drop-shadow(0 0 4px #00ffff);
-}
+            const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diffMs / (1000 * 60)) % 60);
+            const seconds = Math.floor((diffMs / 1000) % 60);
 
-.tooltip {
-    visibility: hidden;
-    background-color: #111;
-    color: #fff;
-    font-size: 12px;
-    padding: 4px 8px;
-    border-radius: 6px;
-    position: absolute;
-    bottom: 120%;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    transition: 0.3s;
-    white-space: nowrap;
-    box-shadow: 0 0 10px #00ffff;
-}
+            document.getElementById("life-days").textContent =
+                `${days} days ${hours}h ${minutes}m ${seconds}s`;
+        }
 
-.visitor-counter:hover .tooltip,
-.life-counter:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
-}
-
-.life-counter {
-    animation: glow 2s ease-in-out infinite;
-}
-
-@keyframes glow {
-    0% { text-shadow: 0 0 10px #00ffff, 0 0 25px #00ffee, 0 0 50px #00ffee; }
-    50% { text-shadow: 0 0 20px #00ffff, 0 0 35px #00ffee, 0 0 70px #00ffee; }
-    100% { text-shadow: 0 0 10px #00ffff, 0 0 25px #00ffee, 0 0 50px #00ffee; }
-}
-</style>
-
-<script>
-function updateLifeDays() {
-    const birthDate = new Date("2006-11-29T00:00:00");
-    const now = new Date();
-    const diffMs = now - birthDate;
-
-    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diffMs / (1000 * 60)) % 60);
-    const seconds = Math.floor((diffMs / 1000) % 60);
-
-    document.getElementById("life-days").textContent =
-        `${days} days ${hours}h ${minutes}m ${seconds}s`;
-}
-
-// cập nhật tự động mỗi giây
-setInterval(updateLifeDays, 1000);
-updateLifeDays();
-</script>
-
+        setInterval(updateLifeDays, 1000);
+        updateLifeDays();
+        </script>
 
         <div id="skills-block" class="hidden">
             <h2 class="skills-title">Nothing</h2>
@@ -1073,12 +1001,10 @@ updateLifeDays();
             </div>
         </div>
 
-
         <div id="results-button-container" class="hidden">
             <button id="results-theme">View Results</button>
             <div id="results-hint" class="hidden">Click again to return to profile</div>
         </div>
-
 
         <div class="controls">
             <div id="home-theme" class="theme-button">1</div>
@@ -1087,7 +1013,6 @@ updateLifeDays();
             <div id="anime-theme" class="theme-button">4</div>
             <div id="car-theme" class="theme-button">5</div>
         </div>
-
 
         <div class="top-controls">
             <div class="volume-control">
@@ -1106,7 +1031,6 @@ updateLifeDays();
         </div>
     </div>
 
-
     <audio id="background-music" loop>
         <source src="assets/background_music.mp3" type="audio/mp3">
     </audio>
@@ -1123,12 +1047,7 @@ updateLifeDays();
         <source src="assets/car_music.mp3" type="audio/mp3">
     </audio>
 
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-
     <script src="script.js"></script>
- 
-
 </body>
 </html>
