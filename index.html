@@ -1021,12 +1021,12 @@
             }
         };
 
-        // Hàm tạo hoa anh đào rơi
+       // Hàm tạo hoa anh đào rơi
         function createSakura() {
             const container = document.getElementById('sakura-overlay');
             if (!container) return;
 
-            const petalCount = 40; // Số lượng cánh hoa (có thể tăng giảm)
+            const petalCount = 40; // Số lượng cánh hoa
             for (let i = 0; i < petalCount; i++) {
                 const petal = document.createElement('div');
                 petal.classList.add('petal');
@@ -1053,8 +1053,30 @@
             }
         }
         
-        // Gọi hàm tạo hoa anh đào khi load trang
-        document.addEventListener("DOMContentLoaded", createSakura);
+        // Thiết lập sự kiện khi trang web tải xong
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Tạo sẵn hoa anh đào
+            createSakura();
+
+            const sakuraOverlay = document.getElementById('sakura-overlay');
+            if (!sakuraOverlay) return;
+
+            // 2. Mặc định ẩn hoa anh đào (vì theme mặc định đang là home-theme)
+            sakuraOverlay.style.display = 'none';
+
+            // 3. Lắng nghe sự kiện khi bấm vào các nút chuyển theme
+            const themeButtons = document.querySelectorAll('.theme-button');
+            themeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Kiểm tra xem nút vừa bấm có phải là anime-theme (nút số 4) không
+                    if (this.id === 'anime-theme') {
+                        sakuraOverlay.style.display = 'block'; // Hiện hoa anh đào
+                    } else {
+                        sakuraOverlay.style.display = 'none'; // Ẩn hoa anh đào
+                    }
+                });
+            });
+        });
         </script>
 
         <div id="skills-block" class="hidden">
