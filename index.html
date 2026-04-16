@@ -852,7 +852,8 @@
         <div id="profile-block">
             <div class="profile-header">
                 <div class="profile-container">
-                    <img src="assets/profile.gif" alt="Profile" class="profile-picture">
+                    <img id="profile-img" src="assets/profile.gif" alt="Profile" class="profile-picture" onclick="document.getElementById('avatar-upload').click()" title="Bấm vào để đổi ảnh đại diện">
+                    <input type="file" id="avatar-upload" accept="image/*" style="display: none;" onchange="changeAvatar(event)">
                 </div>
                 <div class="profile-info">
                     <div class="name-and-badges">
@@ -965,6 +966,19 @@
 
         setInterval(updateLifeDays, 1000);
         updateLifeDays();
+
+        // BẮT ĐẦU ĐOẠN JS HỖ TRỢ UPLOAD ẢNH
+        function changeAvatar(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profile-img').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+        // KẾT THÚC ĐOẠN JS HỖ TRỢ UPLOAD ẢNH
         </script>
 
         <div id="skills-block" class="hidden">
